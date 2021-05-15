@@ -1,0 +1,186 @@
+body {
+    direction: ltr;
+    text-align: left;
+}
+.menu-st > li {
+    float: left;
+    margin-right: 40px;
+    margin-left: inherit;
+}
+.menu-st > li > a > img {
+    margin-right: 5px;
+    margin-left: inherit;
+}
+.menu-purches > li:last-child {
+    margin-right: 0;
+}
+.menu-purches > li {
+    float: left;
+    margin-right: 20px;
+    margin-left: inherit
+}
+.login-btn img {
+    margin-right: 10px;
+    margin-left: inherit;
+}
+.login-btn a {
+    margin-right: 10px;
+    padding-right: 10px;
+    padding-left: inherit;
+    margin-left: inherit;
+}
+.login-btn a:before {
+    right: 0;
+    left: auto;
+}
+.form-search-head .btn-submit-search {
+    height: 40px;
+    width: 80px;
+    border-radius: 0;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    right: 0;
+    left: auto;
+}
+li.cart-purches-btn a figure {
+    margin-left: 10px;
+    margin-right: inherit;
+}
+.home_txt figure img {
+    transform: scale(-1,1)
+}
+.home_txt .sec-title {
+    left: 0;
+    right: auto;
+    padding-right: 40px;
+    padding-left: inherit;
+}
+.home_txt .shape-site {
+    padding-left: 40px;
+    padding-right: initial;
+}
+.home_txt .shape-site:before,
+.sec_head h3:before {
+    right: auto;
+    left: 0;
+}
+.shape-about {
+    border-radius: 0;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    margin-left: 30px;
+    margin-right: inherit;
+}
+.img-about img {
+    margin-left: -100px;
+    margin-right: auto;
+    transform: scale(-1,1);
+}
+.img-subscriber-ratings {
+    padding-left: 28px;
+    padding-right: initial;
+}
+#slider-subscriber-ratings .owl-nav > button.owl-prev,
+#slider-subscriber-ratings .owl-nav > button.owl-next {
+    right: -50px;
+    left: auto;
+}
+.title-download span:before {
+    left: 0;
+    right: auto;
+}
+.title-download span {
+    padding-left: 30px;
+    margin-right: 20px;
+    padding-right: initial;
+    margin-left: auto;
+}
+.list-contact li {
+    flex-direction: inherit;
+}
+.content_about .sec_head:before {
+    left: 0;
+    right: auto;
+}
+.breadcrumb-item+.breadcrumb-item::before {
+    transform: scale(-1,1);
+}
+.boc-pr figure {
+    margin-right: 25px;
+    margin-left: inherit;
+}
+.tabel-cart tr th:first-child {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 0;
+}
+.boc-pr .sec-title {
+    text-align: left;
+}
+.table-site tr th:last-child {
+    border-top-right-radius: 20px;
+    border-top-left-radius: 0;
+}
+.follow-us p:before {
+    right: 0;
+    left: auto;
+}
+.follow-us p {
+    margin-left: 15px;
+    padding-right: 15px;
+    margin-right: inherit;
+    padding-left: inherit;
+}
+.follow-us ul {
+    margin-left: 30px;
+    margin-right: inherit;
+}
+.option-payment li p {
+    margin-right: 50px;
+    margin-left: initial;
+}
+.option-payment li {
+    margin-right: 20px;
+    margin-left: inherit;
+}
+.form-payment .form-group {
+    margin-right: 30px;
+    margin-left: inherit;
+}
+.form-payment .form-group:nth-child(even) {
+    margin-right: 0;
+}
+.option-card li:before {
+    right: 0;
+    left: auto;
+}
+.option-card li a img {
+    margin-right: 5px;
+    margin-left: inherit;
+}
+.option-card li:last-child:before {
+    display: none
+}
+.add-ticit {
+    right: 0;
+    left: auto;
+}
+.add-ticit i {
+    margin-right: 10px;
+    margin-left: inherit;
+}
+.table-site tr th:first-child {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 0;
+}
+.table-site th {
+    text-align: left;
+}
+
+
+
+
+
+
+
+
+
