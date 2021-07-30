@@ -2,7 +2,7 @@
 
 #Project Shop cart E-commerce
 
-Dashboard
+<h1>Dashboard</h1>
 
 1- Use Dashboard coreui UI </br>
 
@@ -21,14 +21,16 @@ Dashboard
 12- Show Order </br>
 13- Create generate carts </br>
 
-<h2>Email Systems</h2>
+<h2>Seetings</h2>
+
+<h4>Email Systems</h4>
 
 1- Send smart emails </br>
 2- Send holiday messages </br>
 3- Send monthly messages </br>
 
-<h2>Email Seetings</h2>
 <h4>Footer</h4>
+
 1- Change about us </br>
 2- Change usage policies</br>
 3- Change privacy policies </br>
