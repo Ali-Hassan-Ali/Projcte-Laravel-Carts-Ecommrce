@@ -41,7 +41,8 @@
                     <h3>{{$category->name}}</h3>
                     <p>@lang('home.bestcart')</p>
                 </div>
-                
+            
+            @if ($carts)
             @if( $markets->count() >= 1)
                 <div class="row">
                 @foreach($markets as $market)
@@ -152,6 +153,7 @@
 
                 @endforeach
                 </div>
+            @endif
             @endif
             </div>
         </section>

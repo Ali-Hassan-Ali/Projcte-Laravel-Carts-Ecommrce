@@ -18,7 +18,7 @@ class CreateCartStoresTable extends Migration
             $table->text('cart_name');
             $table->text('cart_code');
             $table->string('used')->default(0);
-            $table->text('user_name')->default('null');
+            $table->string('user_name')->default('null');
             $table->integer('users_id');
             $table->integer('cliant_id')->default(0);
             $table->bigInteger('sub_category_id')->unsigned();        

@@ -60,14 +60,7 @@ class MarketController extends Controller
             $markets          = new Market();
             $markets->name    = ['ar'=> $markets_all['name'],'en'=> $markets_all['name_en']];
             $markets->user_id = auth()->user()->id;
-
-            $file_name = time() . '.' . $request->image->getClientOriginalExtension();
-
-            $request->image->move(public_path('uploads/market_images/') , $file_name);
-
-
-
-            $markets->image = $file_name ;
+            $markets->image   = $request->file('image')->store('market_images','public');
 
             $markets->save();
 
@@ -76,8 +69,7 @@ class MarketController extends Controller
             return redirect()->route('dashboard.markets.index');
 
         // } catch (\Exception $e) {
-        //     return redirect()->back()->withErrors(['error' => $e->getMessage()]);
-        // }//end try
+        //     return redirect()->back()->withErrors(['error' => $e->getMessage[],]        // }//end try
 
     }//end store
 
@@ -93,24 +85,19 @@ class MarketController extends Controller
     {
 
         try {
-
           
 
             if($request->image){
-
-            $file_name = time() . '.' . $request->image->getClientOriginalExtension();
-
-
-            $request->image->move(public_path('uploads/market_images/') , $file_name);
 
             $market->update([
 
                 'name'    => ['ar'=> $request->name,'en'=> $request->name_en],
                 'user_id' => auth()->user()->id,
-                'image'   => $file_name,
+                'image'   => $request->file('image')->store('market_images','public'),
                 
             ]);
-            }else{
+
+            } else {
 
                 $market->update([
 

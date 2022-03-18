@@ -15,17 +15,17 @@ class CreatePurchasesTable extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('text')->nullable();
+            $table->string('text')->nullable();
             $table->bigInteger('number');
             $table->bigInteger('cart_id');
             $table->bigInteger('sub_category_id');
-            $table->text('cart_name');
+            $table->string('cart_name');
             $table->longText('short_descript');
             $table->longText('cart_text');
             $table->string('date');
             $table->string('rate');
             $table->string('code');
-            $table->text('status')->default('0');
+            $table->string('status')->default('0');
             $table->string('image')->default('default.png');
             $table->integer('purchases_status');
             $table->integer('users_id');

@@ -18,8 +18,8 @@ class CreateSupportCartsTable extends Migration
             $table->bigInteger('claint_id')->unsigned();
 
             $table->text('cliant_email');
-            $table->text('ticit_answer')->default('default');
-            $table->text('ticit_reply')->default('default');
+            $table->string('ticit_answer')->default('default');
+            $table->string('ticit_reply')->default('default');
             $table->text('ticit_address');
             $table->text('ticit_type');
             $table->text('number_ticit');

@@ -17,7 +17,7 @@ class CartDetail extends Model
 
     public function getImagePathAttribute()
     {
-        return asset('uploads/cart_images/' . $this->image);
+        return asset('storage/' . $this->image);
 
     } //end of get image path
 

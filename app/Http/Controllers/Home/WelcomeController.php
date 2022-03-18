@@ -147,26 +147,20 @@ class WelcomeController extends Controller
 
     public function show_market($category)
     {
-
         $parent_categories = Parent_Category::with('sub_category')->get();
 
         $sub_categories = Sub_Category::where('id', '=', $category)->get();
 
-        //  $markets = Market::where('sub_categories_id', $category)->get();
+        $market_id   = Product::where('sub_category_id', $category)->pluck('market_id');
 
-        $carts = Product::where('sub_category_id', $category)->get();
+        $carts    = Product::where('sub_category_id', $category)->get();
 
         $SubImage = Product::where('sub_category_id', $category)->first();
 
-        $markets = [];
-
-        foreach ($carts as $cart) {
-
-            $markets = Market::where('id', $cart->market_id)->get();
-
+        if ($market_id) {
+            
+            $markets = Market::whereIn('id', $market_id)->get();
         }
-
-        // dd($markets);
 
         return view('home.products', compact('carts', 'sub_categories', 'markets', 'parent_categories', 'SubImage'));
 

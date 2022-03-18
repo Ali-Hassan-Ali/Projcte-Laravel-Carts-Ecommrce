@@ -43,30 +43,26 @@ class CartDetailControlller extends Controller
             'image'             => 'required',
         ]);
 
-        try {
+        // try {
 
             $request_all = $request->all();
-
-            $file_name = time() . '.' . $request->image->getClientOriginalExtension();
-
-            $request->image->move('uploads/cart_images/', $file_name);
 
             $carts = new CartDetail();
 
             $carts->cart_name      = ['ar' => $request_all['cart_name'], 'en' => $request_all['cart_name_en']];
             $carts->short_descript = ['ar' => $request_all['short_descript'], 'en' => $request_all['short_descript_en']];
             $carts->cart_text      = ['ar' => $request_all['cart_text'], 'en' => $request_all['cart_text_en']];
-            $carts->users_id       = auth()->user()->id;
-            $carts->image          = $file_name;
+            $carts->users_id       = auth()->id();
+            $carts->image          = $request->file('image')->store('cart_images','public');
 
             $carts->save();
 
             notify()->success(__('home.added_successfully'));
             return redirect()->route('dashboard.carts_detail.index');
 
-        } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
-        } //end try
+        // } catch (\Exception $e) {
+            // return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        // } //end try
 
     } //end of store
 
@@ -79,6 +75,7 @@ class CartDetailControlller extends Controller
     public function update(Request $request, CartDetail $cartDetail,$id)
     {
         $cartDetail = CartDetail::find($id);
+
         $request->validate([
             'cart_name'         => 'required',
             'cart_name_en'      => 'required',
@@ -89,20 +86,16 @@ class CartDetailControlller extends Controller
             'image'             => 'image',
         ]);
 
-        try {
+        // try {
 
             if ($request->image) {
-
-                $file_name = time() . '.' . $request->image->getClientOriginalExtension();
-
-                $request->image->move(public_path('uploads/cart_images/'), $file_name);
 
                 $cartDetail->update([
                     'cart_name'      => ['ar' => $request->cart_name,      'en' => $request->cart_name_en],
                     'short_descript' => ['ar' => $request->short_descript, 'en' => $request->short_descript_en],
                     'cart_text'      => ['ar' => $request->cart_text,      'en' => $request->cart_text_en],
-                    'users_id'       => auth()->user()->id,
-                    'image'          => $file_name,
+                    'users_id'       => auth()->id(),
+                    'image'          => $request->file('image')->store('cart_images','public'),
                 ]);
 
             } else {
@@ -111,7 +104,7 @@ class CartDetailControlller extends Controller
                     'cart_name'      => ['ar' => $request->cart_name,      'en' => $request->cart_name_en],
                     'short_descript' => ['ar' => $request->short_descript, 'en' => $request->short_descript_en],
                     'cart_text'      => ['ar' => $request->cart_text,      'en' => $request->cart_text_en],
-                    'users_id'       => auth()->user()->id,
+                    'users_id'       => auth()->id(),
                 ]);
 
             } //end of if
@@ -119,11 +112,11 @@ class CartDetailControlller extends Controller
             notify()->success(__('home.updated_successfully'));
             return redirect()->route('dashboard.carts_detail.index');
 
-        } catch (\Exception $e) {
+        // } catch (\Exception $e) {
 
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            // return redirect()->back()->withErrors(['error' => $e->getMessage()]);
 
-        } //end try
+        // } //end try
 
     } //end of update
 
@@ -134,6 +127,7 @@ class CartDetailControlller extends Controller
         $cartDetail->delete();
         notify()->success(__('home.deleted_successfully'));
         return redirect()->route('dashboard.carts_detail.index');
+
     } //end of destroy
 
 } //end of controller

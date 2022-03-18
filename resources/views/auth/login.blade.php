@@ -36,7 +36,7 @@
                                     </span>
                                 </div>
                                 <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                       name="email" value="{{ old('email') }}"
+                                       name="email" value="super_admin@app.com"
                                        placeholder="@lang('home.email')">
                                 @error('email')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -50,7 +50,7 @@
                                 </div>
                                 <input type="password"
                                        class="form-control @error('password') is-invalid @enderror"
-                                       placeholder="@lang('home.password')" name="password">
+                                       placeholder="@lang('home.password')" value="123123123" name="password">
                                 @error('password')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror

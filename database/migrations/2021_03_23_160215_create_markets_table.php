@@ -15,9 +15,9 @@ class CreateMarketsTable extends Migration
     {
         Schema::create('markets', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger( 'user_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
             $table->string('name');
-            $table->text('image')->default('default.png');
+            $table->string('image')->default('default.png');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

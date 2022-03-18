@@ -19,7 +19,7 @@ class CreateCartDetailsTable extends Migration
             $table->string('cart_name');
             $table->longText('short_descript');
             $table->longText('cart_text');
-            $table->text('image')->default('default.png');
+            $table->string('image')->default('default.png');
             $table->timestamps();
         });
     }

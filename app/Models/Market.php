@@ -36,7 +36,12 @@ class Market extends Model
 
     public function getImagePathAttribute()
     {
-        return asset('uploads/market_images/' . $this->image);
+        if ($this->image == 'default.png') {
+            
+            return asset('uploads/market_images/' . $this->image);
+        }
+
+        return asset('storage/' . $this->image);
 
     } //end of get image path
 
