@@ -86,6 +86,8 @@
                 </tbody>
             </table>
 
+                {{ $users->appends(request()->query())->links() }}
+
             @else
             
             <h2>@lang('dashboard.no_data_found')</h2>

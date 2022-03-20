@@ -14,7 +14,6 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
-        Commands\RateOFTheDay::class,
     ];
 
     /**
@@ -25,10 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        \Artisan::call('rate:day');
-
-        \Artisan::call('queue:work --stop-when-empty');
-
+        // $schedule->command('inspire')
+        //          ->hourly();
     }
 
     /**

@@ -94,7 +94,7 @@
                 </tbody>
             </table>
 
-            {{$cupons->appends(request()->query())->links()}}
+            {{ $cupons->appends(request()->query())->links() }}
 
             @else
             

@@ -84,6 +84,7 @@
                 </tbody>
             </table>
 
+            {{ $uses->appends(request()->query())->links() }}
 
             @else
             

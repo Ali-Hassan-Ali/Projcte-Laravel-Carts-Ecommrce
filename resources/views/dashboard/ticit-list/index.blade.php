@@ -87,7 +87,7 @@
                 </tbody>
             </table>
 
-            {{$ticits->appends(request()->query())->links()}}
+            {{ $ticits->appends(request()->query())->links() }}
 
             @else
             

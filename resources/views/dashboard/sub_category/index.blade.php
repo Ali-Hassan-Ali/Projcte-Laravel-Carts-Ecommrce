@@ -94,8 +94,7 @@
                 </tbody>
             </table>
 
-
-            {{-- {{$sub_categories->appends(request()->query())->links()}} --}}
+            {{ $sub_categories->appends(request()->query())->links() }}
 
             @else
             

@@ -85,6 +85,7 @@
                 </tbody>
             </table>
 
+            {{ $emails->appends(request()->query())->links() }}
 
             @else
             
@@ -92,6 +93,8 @@
             
             @endif
         </div>
+
+
     </div>
 </div>
 

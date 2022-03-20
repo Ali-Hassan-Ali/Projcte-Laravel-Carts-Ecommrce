@@ -29,7 +29,7 @@ class ParentCategoryController extends Controller
             return $q->where('name->ar', 'like', '%' . $request->search . '%')
                    ->orWhere('name->en', 'like', '%' . $request->search . '%');
 
-        })->latest()->paginate(20);
+        })->latest()->paginate(10);
 
         return view('dashboard.parent_category.index', compact('parent_categories'));
 

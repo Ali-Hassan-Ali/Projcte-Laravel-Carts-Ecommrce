@@ -89,7 +89,7 @@
                 </tbody>
             </table>
 
-
+                {{ $parent_categories->appends(request()->query())->links() }}
 
             @else
             
@@ -97,6 +97,8 @@
             
             @endif
         </div>
+
+
     </div>
 </div>
 

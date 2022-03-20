@@ -123,7 +123,6 @@
             </table>
 
             {{ $carts->appends(request()->query())->links() }}
-           
             
             @else
             

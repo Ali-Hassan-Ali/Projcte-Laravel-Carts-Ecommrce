@@ -99,7 +99,8 @@
                     @endforeach
                 </tbody>
             </table>
-
+            
+            {{ $carts_store->appends(request()->query())->links() }}
 
             @else
             

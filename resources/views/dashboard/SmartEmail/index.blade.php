@@ -57,9 +57,6 @@
                     <tr>
                         <th>#</th>
                         <th>Text Emails</th>
-                        
-
-                     
                     </tr>
                 </thead>
                 <tbody>
@@ -74,7 +71,7 @@
                 </tbody>
             </table>
 
-            {{$emails->appends(request()->query())->links()}}
+            {{ $emails->appends(request()->query())->links() }}
 
             @else
             

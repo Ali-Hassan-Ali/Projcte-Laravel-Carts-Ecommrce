@@ -66,8 +66,8 @@
                     @endforeach
                 </tbody>
             </table>
-            {{$emails->appends(request()->query())->links()}}
 
+            {{ $emails->appends(request()->query())->links() }}
 
             @else
             

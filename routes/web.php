@@ -14,8 +14,8 @@ Route::group(
 	 Route::group(['namespace' => 'Home'], function(){
 
         Route::get('/dd', function() {
-            \Artisan::call('storage:link');
             return 'true';
+            \Artisan::call('storage:link');
         });
 
         Route::get('/', 'WelcomeController@index')->name('/');

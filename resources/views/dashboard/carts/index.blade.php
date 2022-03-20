@@ -119,7 +119,7 @@
                 </tbody>
             </table>
 
-            {{-- {{$carts->appends(request()->query())->links()}} --}}
+            {{ $carts->appends(request()->query())->links() }}
 
             @else
             
