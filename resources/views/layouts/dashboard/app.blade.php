@@ -72,7 +72,6 @@
 @stack('page_scripts')
 </script>
 
-@include('notify::components.notify')
 @include('notify::messages')
 <x:notify-messages />
 @notifyJs
