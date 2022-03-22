@@ -23,12 +23,16 @@ class MarketRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name'              => 'required',
-            'name_en'           => 'required',
-            'sub_categories_id' => 'required',
-            'image'             => 'image',
+        $rules = [
+            'name'      => 'required',
+            'name_en'   => 'required',
         ];
+
+        if (request()->getMethod() == 'POST') {
+            $rules += ['image' => 'required'];
+        }
+
+        return $rules;
     }
 
     public function messages()
@@ -36,8 +40,7 @@ class MarketRequest extends FormRequest
         return [
             'name.required'                 => trans('validation.required'),
             'sub_categories_id.required'    => trans('validation.required'),
-            'name_en.required' => trans('validation.required'),
-
+            'name_en.required'              => trans('validation.required'),
         ];
     }
 }

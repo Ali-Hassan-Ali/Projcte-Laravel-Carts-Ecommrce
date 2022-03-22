@@ -24,16 +24,15 @@ class sub_category extends Model
         return $this->belongsTo('App\Models\User');
     }
 
-    public function howuse() {
-
+    public function howuse() 
+    {
         return $this->hasMany('App\Models\HowUse','sub_categorys_id');
-    
     }
 
 
     public function getImagePathAttribute()
     {
-        return asset('uploads/sub_category_images/' . $this->image);
+        return asset('storage/' . $this->image);
 
     }//end of get image path
 

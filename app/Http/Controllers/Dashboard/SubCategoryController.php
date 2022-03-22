@@ -10,8 +10,6 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
 
-
-
 class SubCategoryController extends Controller
 {
 
@@ -63,22 +61,16 @@ class SubCategoryController extends Controller
 
 
         $sub_categories = $request->all();
+
         try {
 
             $validated = $request->validated();
 
                 $my_categories                     = new Sub_Category();
                 $my_categories->name               = ['ar'=> $sub_categories['name'],'en'=> $sub_categories['name_en']];
-                $my_categories->user_id            = auth()->user()->id;
+                $my_categories->user_id            = auth()->id();
                 $my_categories->parent_category_id = $request->parent_category_id;
-
-                $file_name = time() . '.' . $request->image->getClientOriginalExtension();
-
-
-                $request->image->move(public_path('uploads/sub_category_images/') , $file_name);
-    
-
-                $my_categories->image              = $file_name;
+                $my_categories->image              = $request->file('image')->store('sub_category_images','public');
                 $my_categories->color_1            = $request->color1;
                 $my_categories->color_2            = $request->color2;
 
@@ -86,6 +78,7 @@ class SubCategoryController extends Controller
 
             notify()->success(__('home.added_successfully'));
             return redirect()->route('dashboard.sub_categories.index');
+
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -99,60 +92,50 @@ class SubCategoryController extends Controller
         $parent_categories = Parent_Category::get();
 
         return view('dashboard.sub_category.edit',compact('sub_category','parent_categories'));
+
     }//end of edit
 
 
     public function update(SubCategory $request, Sub_Category $sub_category)
     {
         
-        try {
+        // try {
             
             
-            if($request->image){
+            if($request->image) {
+                
+                if ($sub_category->image != 'default.png') {
 
-                $file_name = time() . '.' . $request->image->getClientOriginalExtension();
+                    Storage::disk('local')->delete('public/' . $sub_category->image);
 
-
-                $request->image->move(public_path('uploads/sub_category_images/') , $file_name);
-    
+                } //end of inner if  
             
                 $sub_category->update([
-
-                'name'               => ['ar'=> $request->name,'en'=> $request->name_en],
-
-                'user_id'            => auth()->user()->id,
-
-                'parent_category_id' => $request->parent_category_id,
-
-                'image'              => $file_name,
-               
-                'color_1'            => $request->color1,
-
-                'color_2'            => $request->color2,
-                ]);
-            }else{
-
-                $sub_category->update([
-
                     'name'               => ['ar'=> $request->name,'en'=> $request->name_en],
-    
-                    'user_id'            => auth()->user()->id,
-    
+                    'user_id'            => auth()->id(),
                     'parent_category_id' => $request->parent_category_id,
-    
-                   
+                    'image'              => $request->file('image')->store('sub_category_images','public'),
                     'color_1'            => $request->color1,
-    
                     'color_2'            => $request->color2,
-                    ]);
-                }
+                ]);
+
+            } else {
+
+                $sub_category->update([
+                    'name'               => ['ar'=> $request->name,'en'=> $request->name_en],
+                    'user_id'            => auth()->id(),
+                    'parent_category_id' => $request->parent_category_id,
+                    'color_1'            => $request->color1,
+                    'color_2'            => $request->color2,
+                ]);
+            }
            
             notify()->success(__('home.updated_successfully'));
             return redirect()->route('dashboard.sub_categories.index');
 
-        } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
-        }
+        // } catch (\Exception $e) {
+        //     return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        // }
 
     }//end of update
 
@@ -161,7 +144,12 @@ class SubCategoryController extends Controller
     public function destroy(sub_category $sub_category)
     {
 
-      
+        if ($sub_category->image != 'default.png') {
+
+            Storage::disk('local')->delete('public/' . $sub_category->image);
+
+        } //end of inner if  
+
         $sub_category->delete();
         notify()->success(__('home.deleted_successfully'));
         return redirect()->route('dashboard.sub_categories.index');

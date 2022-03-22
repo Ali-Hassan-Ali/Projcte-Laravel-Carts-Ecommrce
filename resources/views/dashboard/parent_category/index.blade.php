@@ -65,8 +65,6 @@
                         <td>{{ $index + 1 }}</td>
                         <td>{{ $parent_category->name }}</td>
                         <td><img src="{{ $parent_category->image_path }}" style="width: 100px;" class="img-thumbnail" alt=""></td>
-
-                      
                         <td>
                             @if (auth()->user()->hasPermission('parent_categorys_update'))
                                 <a href="{{ route('dashboard.parent_category.edit', $parent_category->id) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('dashboard.edit')</a>

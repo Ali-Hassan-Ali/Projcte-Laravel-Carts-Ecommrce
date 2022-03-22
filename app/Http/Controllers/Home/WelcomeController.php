@@ -157,10 +157,7 @@ class WelcomeController extends Controller
 
         $SubImage = Product::where('sub_category_id', $category)->first();
 
-        if ($market_id) {
-            
-            $markets = Market::whereIn('id', $market_id)->get();
-        }
+        $markets   = Market::whereIn('id', $market_id)->get();
 
         return view('home.products', compact('carts', 'sub_categories', 'markets', 'parent_categories', 'SubImage'));
 
@@ -176,6 +173,10 @@ class WelcomeController extends Controller
         $sub_categories = Sub_Category::where('id', '=', $category)->get();
 
         $carts = Product::where('sub_category_id', $category)->where('market_id', $market)->get();
+
+        $market_id = Product::where('sub_category_id', $category)->pluck('market_id');
+        $markets   = Market::whereIn('id', $market_id)->get();
+        $SubImage = Product::where('sub_category_id', $category)->first();
 
         if (!session()->get('rate') == null) {
 
@@ -200,7 +201,7 @@ class WelcomeController extends Controller
             }
         }
 
-        return view('home.products', compact('carts', 'markets', 'sub_categories', 'parent_categories'));
+        return view('home.markets', compact('carts', 'markets', 'sub_categories', 'parent_categories','SubImage'));
 
     } //end of function
 

@@ -43,32 +43,7 @@
                 </div>
             
             @if ($carts->count() > 0)
-            @if($markets->count() > 0)
-                <div class="row">
-                @foreach($markets as $market)
-
-                    <div class="col-md-3">
-                        
-                        <div class="box-card" 
-                        style="background: linear-gradient(180deg, {{ $category->color_1 }} 0%, {{ $category->color_2 }} 100%);" 
-                        data-color1="#ff0000" data-color2="" onchange="pickRedInt()">
-                        <a href="{{ route('show_carts',[$category->id,$market->id]) }}" class="non">
-                            <div class="title-card">
-                                <img src="{{ $SubImage->cart_details->image_path }}" class="pb-3" alt="" width="100px">
-                                <h6 class="pt-4">@lang('home.cart_market') {{ $category->name }}</h6>
-                                <h4 style="color: #ddd" class="pt-4">@lang('home.market')</h4>
-                                <h2>{{ $market->name }}</h2>
-                                <span><img class="py-3" src="{{ $market->image_path }}" width="90px" style="border-radius: 34px;"></span>
-                            </div>
-                        </a>
-                        </div>
-                    </div>
-
-                @endforeach
-
-                </div>
-            @else
-                <div class="row">
+            
                 @foreach($carts as $cart)
 
                     <div class="col-md-3">
@@ -153,7 +128,6 @@
 
                 @endforeach
                 </div>
-            @endif
             @endif
             </div>
         </section>

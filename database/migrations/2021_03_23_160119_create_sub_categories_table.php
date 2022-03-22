@@ -17,8 +17,8 @@ class CreateSubCategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->string( 'user_id' );
             $table->bigInteger( 'parent_category_id' )->unsigned();
-            $table->string('name');
-            $table->string('image')->default('default.png');
+            $table->text('name');
+            $table->string('image')->default('sub_category_images/default.png');
             $table->string('color_1');
             $table->string('color_2');
 

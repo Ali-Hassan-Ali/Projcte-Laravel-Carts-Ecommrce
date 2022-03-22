@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CartDetailRequest;
 use App\Models\CartDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CartDetailControlller extends Controller
 {
@@ -23,25 +25,17 @@ class CartDetailControlller extends Controller
         })->latest()->paginate(10);
 
         return view('dashboard.carts_detail.index', compact('carts_detail'));
+
     } //end of index
 
     public function create()
     {
         return view('dashboard.carts_detail.create');
+
     } //end of create
 
-    public function store(Request $request)
+    public function store(CartDetailRequest $request)
     {
-        // dd($request->all());
-        $request->validate([
-            'cart_name'         => 'required',
-            'cart_name_en'      => 'required',
-            'cart_text'         => 'required',
-            'cart_text_en'      => 'required',
-            'short_descript_en' => 'required',
-            'short_descript'    => 'required',
-            'image'             => 'required',
-        ]);
 
         // try {
 
@@ -72,23 +66,19 @@ class CartDetailControlller extends Controller
         return view('dashboard.carts_detail.edit', compact('cartDetail'));
     } //end of edit
 
-    public function update(Request $request, CartDetail $cartDetail,$id)
+    public function update(CartDetailRequest $request, CartDetail $cartDetail,$id)
     {
         $cartDetail = CartDetail::find($id);
-
-        $request->validate([
-            'cart_name'         => 'required',
-            'cart_name_en'      => 'required',
-            'cart_text'         => 'required',
-            'cart_text_en'      => 'required',
-            'short_descript_en' => 'required',
-            'short_descript'    => 'required',
-            'image'             => 'image',
-        ]);
 
         // try {
 
             if ($request->image) {
+
+                if ($cartDetail->image != 'cart_images/default.png') {
+
+                    Storage::disk('local')->delete('public/' . $cartDetail->image);
+
+                } //end of inner if
 
                 $cartDetail->update([
                     'cart_name'      => ['ar' => $request->cart_name,      'en' => $request->cart_name_en],
@@ -122,7 +112,13 @@ class CartDetailControlller extends Controller
 
     public function destroy(CartDetail $cartDetail,$id)
     {
-        $cartDetail = CartDetail::find($id); 
+        $cartDetail = CartDetail::find($id);
+
+        if ($cartDetail->image != 'cart_images/default.png') {
+
+            Storage::disk('local')->delete('public/' . $cartDetail->image);
+
+        } //end of inner if
 
         $cartDetail->delete();
         notify()->success(__('home.deleted_successfully'));

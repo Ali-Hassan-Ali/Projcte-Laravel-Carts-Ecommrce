@@ -16,7 +16,7 @@ class CreateCartDetailsTable extends Migration
         Schema::create('cart_details', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('users_id');
-            $table->string('cart_name');
+            $table->text('cart_name');
             $table->longText('short_descript');
             $table->longText('cart_text');
             $table->string('image')->default('default.png');

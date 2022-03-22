@@ -21,7 +21,7 @@ class parent_category extends Model
 
     public function getImagePathAttribute()
     {
-        return asset('uploads/parent_category_images/' . $this->image);
+        return asset('storage/' . $this->image);
 
     }//end of get image path
 

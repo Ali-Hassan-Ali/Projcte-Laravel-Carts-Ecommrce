@@ -15,8 +15,8 @@ class CreateParentCategoriesTable extends Migration
     {
         Schema::create('parent_categories', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('image')->default('default.jpg');
+            $table->text('name');
+            $table->string('image')->default('parent_category_images/default.jpg');
             $table->timestamps();
         });
     }

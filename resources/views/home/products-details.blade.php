@@ -98,7 +98,7 @@
                             <a href="{{ route('product_show_details',[$r_cart->sub_category->id,$r_cart->id]) }}" class="non">
 
                             <div class="title-card">
-                                <center><img src="{{ asset('uploads/cart_images/' . $r_cart->cart_details->image)}}" width="100px"></center>
+                                <center><img src="{{ $r_cart->cart_details->image_path }}" width="100px"></center>
                                 <h2>{{ $r_cart->cart_details->cart_name }}</h2>
                                 <p>{{ $r_cart->cart_details->short_descript }}</p>
                                 <span>

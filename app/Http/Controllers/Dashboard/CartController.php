@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CartRequest;
 use App\Models\Market;
 use App\Models\Product;
 use App\Models\Notify;
@@ -52,10 +53,8 @@ class CartController extends Controller
         return view('dashboard.carts.create', compact('markets', 'sub_categorys','carts_details'));
     } //end ofcreate
 
-    public function store(Request $request)
+    public function store(CartRequest $request)
     {
-        // dd($request->all());
-
         $request->validate([
             'cart_details_id' => 'required',
             'sub_category_id' => 'required',
@@ -64,29 +63,10 @@ class CartController extends Controller
             'stars'           => 'required',
             'amrecan_price'   => 'required',
         ]);
-        // return "ffffffff";
-        $request_all = $request->all();
+        
+        $request['users_id'] = auth()->id();
 
-        $carts = new Product();
-
-        $carts->cart_details_id = $request->cart_details_id;
-
-        $carts->users_id = auth()->user()->id;
-
-        $carts->market_id = $request->market_id;
-
-        $carts->sub_category_id = $request->sub_category_id;
-
-        $carts->rating = $request->rating;
-
-        $carts->balance = $request->balance;
-
-        $carts->stars = $request->stars;
-
-        $carts->amrecan_price = $request->amrecan_price;
-
-        $carts->save();
-
+        Product::create($request->all());
 
         notify()->success(__('home.added_successfully'));
         return redirect()->route('dashboard.carts.index');
@@ -105,7 +85,7 @@ class CartController extends Controller
         return view('dashboard.carts.edit', compact('markets', 'sub_categorys', 'cart','carts_details'));
     } //end of edit
 
-    public function update(Request $request, Product $cart)
+    public function update(CartRequest $request, Product $cart)
     {
         // dd($request->all());
 

@@ -10,7 +10,6 @@ use App\Http\Requests\MarketRequest;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 
-
 class MarketController extends Controller
 {
 
@@ -26,10 +25,10 @@ class MarketController extends Controller
 
     public function index(Request $request)
     {
-     $markets = Market::when($request->search, function($q) use ($request){
+        $markets = Market::when($request->search, function($q) use ($request){
 
-        return $q->where('name->ar', 'like', '%' . $request->search . '%')
-               ->orWhere('name->en', 'like', '%' . $request->search . '%');
+            return $q->where('name->ar', 'like', '%' . $request->search . '%')
+                   ->orWhere('name->en', 'like', '%' . $request->search . '%');
 
         })->latest()->paginate(5);
 
@@ -44,32 +43,24 @@ class MarketController extends Controller
     }//end create
 
 
-    public function store(Request $request)
+    public function store(MarketRequest $request)
     {   
-        $request->validate([
-            'name'              => 'required',
-            'name_en'           => 'required',
-            'image'             => 'required',
-        ]);
+        try {
 
-        $markets_all = $request->all();
+            $request_data            = $request->except(['name', 'name_en', 'image']);
+            $request_data['name']    = ['ar'=> $request->name,'en'=> $request->name_en];
+            $request_data['user_id'] = auth()->id();
+            $request_data['image']   = $request->file('image')->store('market_images','public');
 
-
-        // try {
-
-            $markets          = new Market();
-            $markets->name    = ['ar'=> $markets_all['name'],'en'=> $markets_all['name_en']];
-            $markets->user_id = auth()->user()->id;
-            $markets->image   = $request->file('image')->store('market_images','public');
-
-            $markets->save();
-
-            // Market::create($request->all());
+            Market::create($request_data);
             notify()->success(__('home.added_successfully'));
             return redirect()->route('dashboard.markets.index');
 
-        // } catch (\Exception $e) {
-        //     return redirect()->back()->withErrors(['error' => $e->getMessage[],]        // }//end try
+        } catch (\Exception $e) {
+
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+
+        }//end try
 
     }//end store
 
@@ -77,7 +68,9 @@ class MarketController extends Controller
     public function edit(Market $market)
     {
         $sub_categorys = Sub_Category::all(); 
+
         return view('dashboard.markets.edit', compact('market','sub_categorys'));
+
     }//end of edit
 
 
@@ -86,34 +79,30 @@ class MarketController extends Controller
 
         try {
           
+            $request_data         = $request->except(['name', 'name_en', 'image']);
+            $request_data['name'] = ['ar'=> $request->name,'en'=> $request->name_en];
 
             if($request->image){
 
-            $market->update([
+                if ($market->image != 'market_images/default.png') {
 
-                'name'    => ['ar'=> $request->name,'en'=> $request->name_en],
-                'user_id' => auth()->user()->id,
-                'image'   => $request->file('image')->store('market_images','public'),
-                
-            ]);
+                    Storage::disk('local')->delete('public/' . $market->image);
 
-            } else {
+                } //end of inner if
 
-                $market->update([
+                $request_data['image'] = $request->file('image')->store('market_images','public');
 
-                    'name'    => ['ar'=> $request->name,'en'=> $request->name_en],
-                    'user_id' => auth()->user()->id,
-                    
-                ]);
+            }//end of if
 
-            }
-            
-            // $market->update($request->all());
+            $market->update($request_data);
+
             notify()->success(__('home.updated_successfully'));
             return redirect()->route('dashboard.markets.index');
 
         } catch (\Exception $e) {
+
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+
         }//end try
 
     }//end of update
@@ -121,7 +110,11 @@ class MarketController extends Controller
 
     public function destroy(Market $market)
     {
-       
+        if ($market->image != 'market_images/default.png') {
+
+            Storage::disk('local')->delete('public/' . $market->image);
+
+        } //end of inner if  
 
         $market->delete();
         notify()->success(__('home.deleted_successfully'));
