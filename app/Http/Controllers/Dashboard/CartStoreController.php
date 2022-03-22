@@ -50,7 +50,7 @@ class CartStoreController extends Controller
         return view('dashboard.carts_store.create', compact('products','sub_categorys'));
     } //end of create
 
-    public function store(CartStoreRequests $request, Product $products)
+    public function store(Request $request, Product $products)
     {
 
         // try {
