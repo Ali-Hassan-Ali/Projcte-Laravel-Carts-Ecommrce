@@ -36,7 +36,6 @@ class WelcomeController extends Controller
     {
         // create read update delete
         $this->middleware(['permission:dashboard_read'])->only('index');
-
     }//end of constructor
 
     public function index()
@@ -65,8 +64,6 @@ class WelcomeController extends Controller
         $ContactUs_count        = ContactUs::count();
         $ComQuest_count         = CommonQuestions::count();
         $AbouUs_count           = AbouUs::count();
-
-        notify()->success(__('home.added_successfully'));
     	return view('dashboard.welcome',
             compact('users_count','Cliant_count','Product_count','sub_categoryegory_count','parent_category_count','CartStore_count',
                 'Market_count','cupon_count','GenerateCart_count','HowUse_count','SupportCart_count',
